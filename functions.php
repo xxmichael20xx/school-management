@@ -9,3 +9,5 @@ require_once "./routes/api.php";
 
 $db = new SM_DB();
 $db->create_tables();
+
+$api = new Api();
