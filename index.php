@@ -8,16 +8,11 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>PHP | School Management System</title>
-    <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
 </head>
 
@@ -41,31 +36,32 @@
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/users">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">group</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Users</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/teachers">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">assignment_ind</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Teachers</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/schools">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">school</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Schools</span>
-                    </a>
-                </li>
+                <?php if ( $_SESSION['role_type'] == 'admin' ) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/teachers">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10">assignment_ind</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Teachers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/schools">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10">school</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Schools</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
+        </div>
+        <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+            <div class="mx-3">
+                <a class="btn bg-gradient-primary mt-4 w-100" href="/logout.php" type="button">
+                    <i class="material-icons">logout</i> Logout
+                </a>
+            </div>
         </div>
     </aside>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -103,7 +99,6 @@
         </div>
     </main>
 
-    <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -115,6 +110,8 @@
         Scrollbar.init( document.querySelector('#sidenav-scrollbar'), options )
         }
     </script>
+    <script src="../assets/js/main.js"></script>
     <script src="../assets/js/material-dashboard.min.js?v=3.0.0"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

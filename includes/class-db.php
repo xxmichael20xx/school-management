@@ -24,7 +24,7 @@ class SM_DB {
                 `last_name` VARCHAR(255) NOT NULL , 
                 `email` VARCHAR(255) NOT NULL , 
                 `password` VARCHAR(255) NOT NULL , 
-                `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+                `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , 
                 `updated_at` TIMESTAMP NULL DEFAULT NULL , 
                 `deleted_at` TIMESTAMP NULL DEFAULT NULL , 
                 PRIMARY KEY (`id`), 
@@ -38,7 +38,7 @@ class SM_DB {
             CREATE TABLE `training_school_cms`.`{$roles_table}` ( 
                 `id` INT(10) NOT NULL AUTO_INCREMENT , 
                 `name` VARCHAR(255) NOT NULL , 
-                `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+                `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , 
                 `updated_at` TIMESTAMP NULL DEFAULT NULL , 
                 `deleted_at` TIMESTAMP NULL DEFAULT NULL , 
                 PRIMARY KEY (`id`)
@@ -54,7 +54,7 @@ class SM_DB {
                 `address` TEXT NOT NULL , 
                 `level` VARCHAR(255) NOT NULL , 
                 `is_active` INT(1) NOT NULL DEFAULT '1' , 
-                `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+                `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , 
                 `updated_at` TIMESTAMP NULL DEFAULT NULL , 
                 `deleted_at` TIMESTAMP NULL DEFAULT NULL , 
                 PRIMARY KEY (`id`), UNIQUE (`name`)
@@ -67,13 +67,33 @@ class SM_DB {
             CREATE TABLE `training_school_cms`.`{$school_teachers_table}` ( 
                 `id` INT(10) NOT NULL AUTO_INCREMENT , 
                 `user_id` INT(10) NOT NULL , 
-                `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+                `school_id` INT(10) NOT NULL , 
+                `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , 
                 `updated_at` TIMESTAMP NULL DEFAULT NULL , 
                 `deleted_at` TIMESTAMP NULL DEFAULT NULL , 
                 PRIMARY KEY (`id`)
             ) ENGINE = InnoDB;
         ";
         $this->mysqli->query( $school_teachers_sql );
+    }
+
+    /**
+     * Defined to make the mysqli accessible
+     * 
+     * @return mysqli
+     */
+    public function sql() {
+        return $this->mysqli;
+    }
+
+    /**
+     * Calls the mysqli query with return fetch all
+     * 
+     * @return mysqli_results
+     */
+    public function init_query( $sql ) {
+        $result = $this->mysqli->query( $sql );
+        return $result->fetch_all( MYSQLI_ASSOC );
     }
 
 }

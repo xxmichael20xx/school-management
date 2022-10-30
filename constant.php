@@ -19,3 +19,7 @@ if ( ! defined( 'DB_NAME' ) ) {
 if ( ! defined( 'ROOT_DIR' ) ) {
     define( 'ROOT_DIR', __DIR__ );
 }
+
+if ( ! defined( 'DEFAULT_DATE_FORMAT' ) ) {
+    define( 'DEFAULT_DATE_FORMAT', 'M d, Y h:ia' );
+}

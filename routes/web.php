@@ -2,12 +2,13 @@
 
 class Web {
 
-    public $request, $path;
+    public $request, $path, $controller;
 
     public function __construct()
     {
         $this->request = $_SERVER['REQUEST_URI'];
         $this->path = parse_url( $this->request )['path'];
+        $this->controller = new SM_Controller();
     }
 
     /**
@@ -16,13 +17,8 @@ class Web {
      * @return Void
      */
     public function renderDisplay() {
-        ob_start();
-
-        $view = sprintf( "/views/%s.php", $this->checkRoute()  );
-        require_once ROOT_DIR . $view;
-
-        exit();
-        echo ob_get_contents();
+        has_session();
+        $this->controller->renderView( $this->checkRoute() );
     }
 
     /**
@@ -33,11 +29,20 @@ class Web {
     public function checkRoute() {
         switch ( $this->path ) {
             case '/':
+            case 'dashboard':
                 $view = "dashboard";
                 break;
 
-            case '/users':
-                $view = "users";
+            case '/schools':
+                $view = "schools";
+                break;
+
+            case '/teachers':
+                $view = "teachers";
+                break;
+
+            case '/login':
+                $view = "login";
                 break;
             
             default:
