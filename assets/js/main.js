@@ -38,6 +38,22 @@ const teachersConfig = {
                 }
             } ).then( r => r.json() ).then( res => {
                 teacherFormSubmit.innerHTML = `Submit`
+
+                if ( ! res.success && res.type == 'validation' ) {
+                    let html = ``
+
+                    Object.keys( res.data ).forEach( ( key ) => {
+                        html += res.data[key]
+                    } )
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Validation failed',
+                        html: html
+                    })
+                    return false
+                }
+
                 Swal.fire({
                     icon: res.success ? 'success' : 'info',
                     title: res.title,
@@ -188,6 +204,22 @@ const schoolsConfig = {
             } ).then( r => r.json() ).then( res => {
                 schoolFormSubmit.innerHTML = `Submit`
                 schoolFormSubmit.classList.remove( 'disabled' )
+
+                if ( ! res.success && res.type == 'validation' ) {
+                    let html = ``
+
+                    Object.keys( res.data ).forEach( ( key ) => {
+                        html += res.data[key]
+                    } )
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Validation failed',
+                        html: html
+                    })
+                    return false
+                }
+
                 Swal.fire({
                     icon: res.success ? 'success' : 'info',
                     title: res.title,

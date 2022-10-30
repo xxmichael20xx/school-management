@@ -72,7 +72,7 @@
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Name</th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Email</th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Assigned School</th>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Create Added</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Date Added</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -116,6 +116,9 @@
                                         </td>
                                         <td>
                                             <p class="mb-0 font-weight-normal">No result(s)</p>
+                                        </td>
+                                        <td>
+                                            <p class="font-weight-normal mb-0">No result(s)</p>
                                         </td>
                                         <td>
                                             <p class="font-weight-normal mb-0">No result(s)</p>
@@ -172,10 +175,14 @@
                                         ?>
                                         <label for="u_assigned_school" class="text-primary ms-0">Assigned School</label>
                                         <select class="form-control" name="u_assigned_school" id="u_assigned_school" required>
-                                            <option value="0"<?= $assigned_school['school_id'] == '0' ? 'selected' : '' ?>>Unassigned</option>
-                                            <?php foreach( $available_schools->fetch_all( MYSQLI_ASSOC ) as $available_school ) : ?>
-                                                <option value="<?= $available_school['id'] ?>"<?= $assigned_school['school_id'] == $available_school['id'] ? 'selected' : '' ?>><?= ucfirst( $available_school['name'] ) ?></option>
-                                            <?php endforeach; ?>
+                                            <?php if ( $available_schools->num_rows < 1 ) : ?>
+                                                <option value="0" selected>Unassigned</option>
+                                            <?php else : ?>
+                                                <option value="0"<?= $assigned_school['school_id'] == '0' ? 'selected' : '' ?>>Unassigned</option>
+                                                <?php foreach( $available_schools->fetch_all( MYSQLI_ASSOC ) as $available_school ) : ?>
+                                                    <option value="<?= $available_school['id'] ?>"<?= $assigned_school['school_id'] == $available_school['id'] ? 'selected' : '' ?>><?= ucfirst( $available_school['name'] ) ?></option>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </select>
                                     </div>
                                 </div>

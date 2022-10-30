@@ -1,3 +1,50 @@
+<?php
+
+require_once "./constant.php";
+require_once "./includes/class-db.php";
+
+$sm_db = new SM_DB();
+$mysqli = $sm_db->sql();
+
+// Check if admin account exists
+$admin = [
+    'role_id' => 1,
+    'first_name' => 'Admin',
+    'last_name' => 'Admin',
+    'email' => 'admin@admin.com',
+    'password' => password_hash( 'admin', PASSWORD_BCRYPT )
+];
+$adminExists = $mysqli->prepare( "SELECT * FROM `users` WHERE `email`=?" );
+$adminExists->bind_param( 's', $admin['email'] );
+$adminExists->execute();
+
+$adminResult = $adminExists->get_result();
+if ( $adminResult->num_rows < 1 ) {
+    $addAdmin = $mysqli->prepare( "INSERT INTO `users` (role_id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)" );
+    $addAdmin->bind_param( 'issss', $admin['role_id'], $admin['first_name'], $admin['last_name'], $admin['email'], $admin['password'] );
+    $addAdmin->execute();
+}
+
+// Check if database has roles
+$roles = [
+    'administrator',
+    'teacher'
+];
+foreach ( $roles as $role ) {
+    $roleExists = $mysqli->prepare( "SELECT * FROM `roles` WHERE `name`=?" );
+    $roleExists->bind_param( 's', $role );
+    $roleExists->execute();
+
+    $roleResult = $roleExists->get_result();
+    if ( $roleResult->num_rows < 1 ) {
+        $addRole = $mysqli->prepare( "INSERT INTO `roles` (name) VALUES (?)" );
+        $addRole->bind_param( 's', $role );
+        $addRole->execute();
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

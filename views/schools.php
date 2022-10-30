@@ -66,7 +66,7 @@
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Name</th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Address</th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">No. of Teachers</th>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Create Added</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Date Added</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -103,6 +103,9 @@
                                         </td>
                                         <td>
                                             <p class="mb-0 font-weight-normal">No result(s)</p>
+                                        </td>
+                                        <td>
+                                            <p class="font-weight-normal mb-0">No result(s)</p>
                                         </td>
                                         <td>
                                             <p class="font-weight-normal mb-0">No result(s)</p>
